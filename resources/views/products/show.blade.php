@@ -12,7 +12,7 @@
                         <h4 class="card-subtitle">{{$product->price}}</h4>
                         <p class="card-text">{{$product->description}}</p>
                         <div class="card-actions text-right">
-                            <button type="button" class="btn btn-outline-success" name="button">Agregar al carrito</button>
+                            <add-product-btn :product='{!!$product!!}'></add-product-btn>
                                 <div class="pt-1">
                                     @include('products.delete')
                                 </div>

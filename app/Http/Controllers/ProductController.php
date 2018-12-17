@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Product;
+use App\ShoppingCart;
 use Illuminate\Http\Request;
 use App\Http\Resources\ProductsCollection;
 
@@ -12,28 +13,19 @@ class ProductController extends Controller
     {
         $this->middleware('auth',['except'=>['index','show']]);
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return ProductsCollection
-     */
+
     public function index(Request $request)
     {
-        //
         $products=Product::paginate(15);
         if($request->wantsJson())
         {
 //            return $products->toJson();
             return new ProductsCollection($products);
         }
-        return view('products.index')->with(compact('products'));
+        return view('products.index')->with(compact('products','shopping_cart'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
         //
@@ -41,12 +33,7 @@ class ProductController extends Controller
         return view('products.create')->with(compact('product'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
         //
@@ -72,14 +59,6 @@ class ProductController extends Controller
 //        $producto->save();
     }
 
-
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         //
@@ -87,12 +66,7 @@ class ProductController extends Controller
     return view('products.show')->with(compact('product'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit($id)
     {
         //
@@ -104,13 +78,7 @@ class ProductController extends Controller
         //return view("products.edit")->with(compact('product'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(Request $request, $id)
     {
         //
@@ -129,12 +97,7 @@ class ProductController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy($id)
     {
         //
